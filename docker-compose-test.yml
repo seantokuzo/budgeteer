@@ -1,0 +1,40 @@
+name: 'budgeteer-test'
+services:
+  # Application Test Service
+  budgeteer-test:
+    container_name: budgeteer-test
+    image: seantokuzo/budgeteer-dev
+    environment:
+      - NODE_ENV=test
+      - JWT_SECRET=testJwtSecret
+      - JWT_LIFETIME=1d
+      - JWT_CONFIRM_LIFETIME=1d
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=budgeteer-testdb
+      - POSTGRES_PASSWORD=budgeteer-test
+      - POSTGRES_HOST=budgeteer-pg-test
+      - TEST_COMMAND=${TEST_COMMAND}
+    volumes:
+      - ./client:/usr/src/app/client
+      - ./:/usr/src/app
+      - client_test_node_modules:/usr/src/app/client/node_modules
+      - server_test_node_modules:/usr/src/app/node_modules
+    depends_on:
+      - budgeteer-pg-test
+    command: npm run ${TEST_COMMAND}
+  # Test Postgres Service
+  budgeteer-pg-test:
+    container_name: budgeteer-pg-test
+    image: postgres:16.3
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=budgeteer-testdb
+      - POSTGRES_PASSWORD=budgeteer-test
+    volumes:
+      - ./scripts/db/postgres/pg_init.sql:/docker-entrypoint-initdb.d/pg_init.sql
+
+volumes:
+  client_test_node_modules:
+  server_test_node_modules:

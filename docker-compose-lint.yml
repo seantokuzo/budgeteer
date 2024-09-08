@@ -1,0 +1,17 @@
+name: 'budgeteer-lint'
+services:
+  budgeteer-lint:
+    container_name: budgeteer-lint
+    image: seantokuzo/budgeteer-dev
+    environment:
+      - LINT_COMMAND=${LINT_COMMAND}
+    volumes:
+      - ./client:/usr/src/app/client
+      - ./:/usr/src/app
+      - client_lint_node_modules:/usr/src/app/client/node_modules
+      - server_lint_node_modules:/usr/src/app/node_modules
+    command: npm run ${LINT_COMMAND}
+
+volumes:
+  client_lint_node_modules:
+  server_lint_node_modules:
