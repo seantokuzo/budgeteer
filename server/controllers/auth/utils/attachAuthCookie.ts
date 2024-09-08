@@ -4,6 +4,6 @@ export const attachAuthCookie = (res: Response, jwt: string) => {
   res.cookie('token', jwt, {
     httpOnly: true,
     secure: false,
-    expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
   });
 };
