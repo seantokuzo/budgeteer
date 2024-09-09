@@ -1,14 +1,12 @@
 import request from 'supertest';
 import { app } from '../../app';
+import { baseAPIUrl } from '../../config/baseUrls';
+
+const logoutUrl = baseAPIUrl + '/auth/logout';
 
 describe('🧪 Logout Unit Tests 🧪', () => {
   it('🧪 Successfully logs out user', async () => {
-    const response = await request(app)
-      .post('/api/v1/auth/logout')
-      .send()
-      .expect(200);
-
-    console.log(response.get('Set-Cookie'));
+    const response = await request(app).post(logoutUrl).send().expect(200);
 
     expect(response.body.message).toEqual('success');
     expect(response.get('Set-Cookie')).toBeDefined();

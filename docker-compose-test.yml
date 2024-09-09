@@ -8,11 +8,7 @@ services:
       - NODE_ENV=test
       - JWT_SECRET=testJwtSecret
       - JWT_LIFETIME=1d
-      - JWT_CONFIRM_LIFETIME=1d
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=budgeteer-testdb
-      - POSTGRES_PASSWORD=budgeteer-test
-      - POSTGRES_HOST=budgeteer-pg-test
+      - MONGO_URI=mongodb://budgeteer-mongo-test:27017/budgeteer-testdb
       - TEST_COMMAND=${TEST_COMMAND}
     volumes:
       - ./client:/usr/src/app/client
@@ -20,20 +16,18 @@ services:
       - client_test_node_modules:/usr/src/app/client/node_modules
       - server_test_node_modules:/usr/src/app/node_modules
     depends_on:
-      - budgeteer-pg-test
+      - budgeteer-mongo-test
     command: npm run ${TEST_COMMAND}
-  # Test Postgres Service
-  budgeteer-pg-test:
-    container_name: budgeteer-pg-test
-    image: postgres:16.3
+  # Test Mongo Service
+  budgeteer-mongo-test:
+    image: mongo
+    container_name: budgeteer-mongo-test
     ports:
-      - '5432:5432'
+      - '27017:27017'
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=budgeteer-testdb
-      - POSTGRES_PASSWORD=budgeteer-test
-    volumes:
-      - ./scripts/db/postgres/pg_init.sql:/docker-entrypoint-initdb.d/pg_init.sql
+      - MONGO_INITDB_DATABASE=budgeteer-testdb
+    # mute mongo container logs
+    command: mongod --quiet --logpath /dev/null
 
 volumes:
   client_test_node_modules:

@@ -28,11 +28,7 @@
     "test:silent": "concurrently -p \"{name}>\" -n \"server,client\" -c \"red.bold,white.blue.bold\" \"npm run test-server:silent\" \"npm run test-client:silent\"",
     "docker-build-dev": "docker build -f Dockerfile-dev -t seantokuzo/budgeteer-dev .",
     "docker-push-dev": "docker push seantokuzo/budgeteer-dev",
-    "docker-build-pg": "docker build -f Dockerfile-postgres -t seantokuzo/budgeteer-pg-dev .",
-    "docker-push-pg": "docker push seantokuzo/budgeteer-pg-dev",
-    "docker-build-dev:all": "concurrently \"npm run docker-build-dev\" \"npm run docker-build-pg\"",
-    "docker-push-dev:all": "concurrently \"npm run docker-push-dev\" \"npm run docker-push-pg\"",
-    "docker-dev:hot": "docker compose -f docker-compose-dev.yml up",
+    "docker-dev": "docker compose -f docker-compose-dev.yml up",
     "docker-lint": "LINT_COMMAND=lint docker compose -f docker-compose-lint.yml up --abort-on-container-exit",
     "docker-lint:trace": "LINT_COMMAND=lint:trace docker compose -f docker-compose-lint.yml up --abort-on-container-exit",
     "docker-lint:fix": "LINT_COMMAND=lint:fix docker compose -f docker-compose-lint.yml up --abort-on-container-exit",
@@ -59,6 +55,7 @@
     "express": "^4.19.2",
     "express-async-errors": "^3.1.1",
     "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.6.1",
     "multer": "^1.4.5-lts.1"
   },
   "devDependencies": {

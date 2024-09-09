@@ -17,13 +17,7 @@ export default [
   },
   // Files/Directories to be ignored by ESLint
   {
-    ignores: [
-      '**/node_modules/',
-      'coverage/',
-      '**/build/',
-      '**/dist/',
-      '**/templates/',
-    ],
+    ignores: ['**/node_modules/', 'coverage/', '**/build/', '**/dist/'],
   },
   // ESLint Recommended Configuration
   {
