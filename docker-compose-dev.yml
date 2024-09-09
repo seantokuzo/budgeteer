@@ -21,8 +21,6 @@ services:
       - ./:/usr/src/app
       - client_node_modules:/usr/src/app/client/node_modules
       - server_node_modules:/usr/src/app/node_modules
-    depends_on:
-      - budgeteer-pg-dev
     command: npm run dev
 
 volumes:

@@ -16,7 +16,7 @@ services:
       - client_test_node_modules:/usr/src/app/client/node_modules
       - server_test_node_modules:/usr/src/app/node_modules
     depends_on:
-      - budgeteer-pg-test
+      - budgeteer-mongo-test
     command: npm run ${TEST_COMMAND}
   # Test Mongo Service
   budgeteer-mongo-test:

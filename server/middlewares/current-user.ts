@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { InternalError } from '../errors/internal-error';
-import { decodeJwt } from '../utils';
+import { JwtUtils } from '../utils';
 
 declare module 'express-serve-static-core' {
   interface Request {
@@ -19,7 +19,7 @@ export const currentUser = (
 
   if (!token) return next();
 
-  const result = decodeJwt(token);
+  const result = JwtUtils.decodeJwt(token);
   if (!result || result === 'expired' || result === 'malformed') {
     throw new InternalError('middlewares/current-user.ts: currentUser');
   }
