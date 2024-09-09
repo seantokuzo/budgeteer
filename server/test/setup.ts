@@ -40,7 +40,7 @@ global.login = async () => {
   const password = 'test1234';
 
   const response = await request(app)
-    .post('/api/v1/auth/gogo/signup')
+    .post('/api/v1/auth/signup')
     .send({
       email,
       password,
