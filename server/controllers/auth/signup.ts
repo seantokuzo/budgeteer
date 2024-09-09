@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { BadRequestError } from '../../errors';
 
-const errorLocation = 'controllers/auth/gogo-auth/signup.ts';
+const errorLocation = 'controllers/auth/-auth/signup.ts';
 
 export const signup = async (req: Request, res: Response) => {
   const { email, password } = req.body;
